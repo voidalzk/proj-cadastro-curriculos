@@ -15,3 +15,10 @@ export type Candidate = Omit<CandidateInput, "phone" | "interestArea" | "profess
 };
 
 export type CandidateErrors = Partial<Record<keyof CandidateInput, string>>;
+
+export type ResumeExtraction = {
+  fullName: string | null;
+  email: string | null;
+  phone: string | null;
+  warnings: string[];
+};

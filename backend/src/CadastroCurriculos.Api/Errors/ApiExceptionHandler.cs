@@ -14,11 +14,14 @@ public class ApiExceptionHandler(ILogger<ApiExceptionHandler> logger) : IExcepti
             context.Request.Method, context.Request.Path);
 
         var databaseError = exception is SqlException or DbUpdateException;
-        context.Response.StatusCode = databaseError ? 503 : 500;
+        var uploadTooLarge = exception is BadHttpRequestException { StatusCode: 413 };
+        context.Response.StatusCode = uploadTooLarge ? 413 : databaseError ? 503 : 500;
         await context.Response.WriteAsJsonAsync(new ProblemDetails
         {
             Status = context.Response.StatusCode,
-            Title = databaseError
+            Title = uploadTooLarge
+                ? "O PDF deve ter no máximo 5 MB."
+                : databaseError
                 ? "Não foi possível acessar o banco de dados. Tente novamente."
                 : "Não foi possível concluir a operação. Tente novamente."
         }, cancellationToken);

@@ -231,6 +231,27 @@ td:last-child {
   max-width: 640px;
 }
 
+.resumeUpload {
+  margin: 24px 0;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  min-width: 0;
+}
+
+.resumeUpload small {
+  color: var(--muted);
+}
+
+.resumeUpload label {
+  display: block;
+  margin: 16px 0 7px;
+}
+
+.resumeUpload button {
+  margin-top: 12px;
+}
+
 .formGrid {
   display: grid;
   gap: 20px;
